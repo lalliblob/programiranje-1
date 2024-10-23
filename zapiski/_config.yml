@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 title: Programiranje 1
 author: Matija Pretnar
 exclude_patterns:
@@ -10,3 +11,15 @@ only_build_toc_files: true
 execute:
   exclude_patterns:
     - 'dn-*.ipynb'
+=======
+title: Programiranje 1
+author: Matija Pretnar
+exclude_patterns:
+  - odlozisce/*
+repository:
+  url: 'https://github.com/matijapretnar/programiranje-1'
+  book_path: zapiski
+  branch: zapiski
+launch_buttons:
+  binderhub_url: 'https://mybinder.org'
+>>>>>>> Stashed changes
