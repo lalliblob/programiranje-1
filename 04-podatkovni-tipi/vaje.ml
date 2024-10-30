@@ -19,16 +19,23 @@
  Namig: Občudujte informativnost tipov funkcij.
 [*----------------------------------------------------------------------------*)
 
-type euro 
+type euro = Euro of float
+type dollar = Dollar of float
 
-type dollar 
+let euro_to_dollar (Euro eur) =
+  let exchange_rate = 0.9 in
+  Dollar (eur *. exchange_rate)
 
-let dollar_to_euro _ = ()
+let dollar_to_euro (Dollar usd) =
+  let exchange_rate = 1.1 in
+  Euro (usd /. exchange_rate)
 
-let euro_to_dollar _ = ()
+(* Primer uporabe: *)
+(*let primer_valute_1 = dollar_to_euro (Dollar 0.5)*)
+(* val primer_valute_1 : euro = Euro 0.45454545454545453 *)
 
-(* let primer_valute_1 = dollar_to_euro (Dollar 0.5) *)
-(* val primer_valute_1 : euro = Euro 0.4305 *)
+(*let primer_valute_2 = euro_to_dollar (Euro 0.5)*)
+(* val primer_valute_2 : dollar = Dollar 0.55 *)
 
 (*----------------------------------------------------------------------------*
  Definirajte tip `currency` kot en vsotni tip z konstruktorji za jen, funt in
@@ -39,9 +46,17 @@ let euro_to_dollar _ = ()
  Ocaml sam opozori, da je potrebno popraviti funkcijo `to_pound`.
 [*----------------------------------------------------------------------------*)
 
-type currency 
+type currency =
+  | Yen of float
+  | Pound of float
+  | Krona of float
+  | Frank of float
 
-let to_pound _ = ()
+let to_pound = function
+  | Yen yen -> Pound (yen *. 0.007)
+  | Pound pound -> Pound pound
+  | Krona krona -> Pound (krona *. 0.085)
+  | Frank frank -> Pound (frank *. 0.80)
 
 (* let primer_valute_2 = to_pound (Yen 100.) *)
 (* val primer_valute_2 : currency = Pound 0.700000000000000067 *)
@@ -58,7 +73,14 @@ let to_pound _ = ()
  `Nil`(oz. `[]` v Ocamlu) in pa konstruktorjem za člen `Cons(x, xs)` (oz. `x ::
  xs` v Ocamlu).
 [*----------------------------------------------------------------------------*)
+type mixed_element =
+  | Int of int
+  | Bool of bool
 
+type mixed_list =
+  | Nil
+  | Cons of mixed_element * mixed_list
+  
 (*----------------------------------------------------------------------------*
  Definirajte tip `intbool_list` z konstruktorji za:
 
