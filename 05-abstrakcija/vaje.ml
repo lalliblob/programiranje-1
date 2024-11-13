@@ -21,8 +21,13 @@ module type NAT = sig
   val eq  : t -> t -> bool
   val zero : t
   (* Dodajte manjkajoče! *)
-  (* val to_int : t -> int *)
-  (* val of_int : int -> t *)
+  val to_int : t -> int 
+  val of_int : int -> t
+  val one : t
+
+  val sestevanje : t -> t -> t
+  val odstevanje : t -> t -> t
+  val mnozenje : t -> t -> t
 end
 
 (*----------------------------------------------------------------------------*
@@ -36,9 +41,21 @@ end
 module Nat_int : NAT = struct
 
   type t = int
-  let eq x y = failwith "later"
+  let eq x y = x = y
   let zero = 0
-  (* Dodajte manjkajoče! *)
+  let one = 1
+  let to_int x = x
+  let of_int x = x
+
+
+
+  let sestevanje x y = x + y
+
+  let odstevanje x y = x - y
+
+  let mnozenje x y = x * y
+
+  
 
 end
 
@@ -53,10 +70,33 @@ end
 
 module Nat_peano : NAT = struct
 
-  type t = unit (* To morate spremeniti! *)
-  let eq x y = failwith "later"
-  let zero = () (* To morate spremeniti! *)
-  (* Dodajte manjkajoče! *)
+  type t = 
+  | Zero
+  | Succ of t
+
+  let eq x y = x = y 
+  let zero = Zero
+  let one = Succ Zero
+  let rec to_int x =
+    match x with
+    | Zero -> 0
+    | Succ n -> 1 + to_int n
+  let rec of_int x = 
+    if  x >= 0 then 
+      match x with 
+      | 0 -> Zero
+      | n -> Succ (of_int (n - 1))
+    else Zero
+     
+
+
+  let sestevanje x y 
+
+  let odstevanje
+
+  let mnozenje
+
+  
 
 end
 
